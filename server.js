@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/viz', (req, res) => {
+  res.sendFile(__dirname + '/views/viz.html');
+});
+
 app.post('/log', (req, res) => {
   let logBody = req.body.logBody;
   io.emit('log event', { logBody });
