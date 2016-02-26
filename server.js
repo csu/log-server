@@ -1,5 +1,7 @@
 "use strict";
 const port = process.env.PORT || 3000;
+const serverSecret = "bN525JGfxoQ561o3K58Ng6E6vnY3ROd9";
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -29,7 +31,13 @@ app.get('/viz', (req, res) => {
 });
 
 app.post('/log', (req, res) => {
-  let logBody = req.body.logBody;
-  io.emit('log event', { logBody });
-  res.send('Log received\n');
+  let secret = req.params.secret;
+  if (secret !== serverSecret) {
+    res.status(401).send('Wrong secret\n');
+  }
+  else {
+    let logBody = req.body.logBody;
+    io.emit('log event', { logBody });
+    res.send('Log received\n'); 
+  }
 });
