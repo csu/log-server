@@ -8,17 +8,17 @@ app.use(bodyParser.urlencoded({ extended: false } ));
 app.use(express.static('static'));
 
 const server = app.listen(port, () => {
-  console.log('listening on *:' + port);
+  console.log('Listening on *:' + port);
 });
 
 const io = require('socket.io')(server);
-io.on('connection', (socket) => {
-  console.log('connected');
+// io.on('connection', (socket) => {
+//   console.log('connected');
  
-  socket.on('disconnect', () => {
-    console.log('disconnected');
-  });
-}); 
+//   socket.on('disconnect', () => {
+//     console.log('disconnected');
+//   });
+// });
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -31,5 +31,5 @@ app.get('/viz', (req, res) => {
 app.post('/log', (req, res) => {
   let logBody = req.body.logBody;
   io.emit('log event', { logBody });
-  res.send('Log received');
+  res.send('Log received\n');
 });
