@@ -20,12 +20,12 @@ io.on('connection', (socket) => {
 }); 
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/visualization.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.post('/log', (req, res) => {
   let logBody = req.body.logBody;
-  io.emit('log', { logBody });
+  io.emit('log event', { logBody });
   console.log(logBody);
   res.send('Log received');
 });
