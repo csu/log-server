@@ -1,4 +1,5 @@
 "use strict";
+const port = process.env.PORT || 3000;
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -6,8 +7,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false } ));
 app.use(express.static('static'));
 
-const server = app.listen(3000, () => {
-  console.log('listening on *:3000');
+const server = app.listen(port, () => {
+  console.log('listening on *:' + port);
 });
 
 const io = require('socket.io')(server);
@@ -30,6 +31,5 @@ app.get('/viz', (req, res) => {
 app.post('/log', (req, res) => {
   let logBody = req.body.logBody;
   io.emit('log event', { logBody });
-  console.log(logBody);
   res.send('Log received');
 });
