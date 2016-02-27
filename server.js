@@ -31,7 +31,7 @@ app.get('/viz', (req, res) => {
 });
 
 app.post('/log', (req, res) => {
-  let secret = req.params.secret;
+  let secret = req.body.secret;
   if (secret !== serverSecret) {
     res.status(401).send('Wrong secret\n');
   }
