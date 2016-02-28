@@ -47,6 +47,8 @@ app.post('/log', (req, res) => {
   const logBody = JSON.parse(req.body.logBody);
   if (logBody.type === 'event') {
     io.emit('event', logBody.data);
+  } else if (logBody.type === 'error') {
+    io.emit('error', logBody.data);
   } else {
     updateState(logBody);
     io.emit('state', state);
