@@ -1,7 +1,11 @@
 var socket = io();
 
-socket.on('log event', function(log){
+socket.on('event', function(data) {
   var li = document.createElement('li');
-  li.textContent = log.logBody;
-  document.getElementById('log-entries').appendChild(li);
+  li.textContent = JSON.stringify(data);
+  document.getElementById('events').appendChild(li);
+});
+
+socket.on('state', function(state) {
+  document.getElementById('state').textContent = JSON.stringify(state);
 });
