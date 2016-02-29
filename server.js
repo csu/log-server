@@ -13,14 +13,12 @@ const server = app.listen(port, () => {
   console.log('Listening on *:' + port);
 });
 
+const state = {};
+
 const io = require('socket.io')(server);
-// io.on('connection', (socket) => {
-//   console.log('connected');
- 
-//   socket.on('disconnect', () => {
-//     console.log('disconnected');
-//   });
-// });
+io.on('connection', (socket) => {
+  socket.emit('state', state);
+});
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -30,14 +28,30 @@ app.get('/viz', (req, res) => {
   res.sendFile(__dirname + '/views/viz.html');
 });
 
+// pre: state = {}
+// body: { type: 'stat', data: { mem:... }}
+// post: state = { stat: { mem: ... }}
+const updateState = (body) => {
+  if (!body.data || !body.type) {
+    return;
+  }
+  state[body.type] = body.data;
+};
+
 app.post('/log', (req, res) => {
   let secret = req.body.secret;
   if (secret !== serverSecret) {
     res.status(401).send('Wrong secret\n');
+    return
   }
-  else {
-    let logBody = req.body.logBody;
-    io.emit('log event', { logBody });
-    res.send('Log received\n'); 
+  const logBody = JSON.parse(req.body.logBody);
+  if (logBody.type === 'event') {
+    io.emit('event', logBody.data);
+  } else if (logBody.type === 'error') {
+    io.emit('error', logBody.data);
+  } else {
+    updateState(logBody);
+    io.emit('state', state);
   }
+  res.send('Log received\n');
 });

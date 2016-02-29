@@ -3,9 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Logs</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+   integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <style>
+    h1 {
+      margin: 15px;
+    }
+
+    .stat {
+      height: 250px;
+      margin-bottom: 20px;
+      overflow-y: scroll;
+      font-size: .8em;
+    }
+
+    .stream {
+      height: 250px;
+      overflow-y: scroll;
+      font-size: .8em;
+    }
+  </style>
 </head>
 <body>
-  <div id="log-entries"></div>
+  <div class="container-fluid">
+    <div id="header">
+      <h1>Tor61Router</h1>
+    </div>
+    <div class="container-fluid">
+      <div class="row" class="general">
+        <div class="col-md-4">
+          <p>Resource Usage</p>
+          <pre class="stat" id="stat"></pre>
+        </div>
+        <div class="col-md-4">
+          <p>General Events</p>
+          <pre class="stream" id="main-events"></pre>
+        </div>
+        <div class="col-md-4">
+          <p>Errors</p>
+          <pre class="stream" id="errors"></pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <p>Router Status</p>
+          <pre class="stat" id="router_stat"></pre>
+        </div>
+        <div class="col-md-8">
+          <p>Router Events</p>
+          <pre class="stream" id="router-events"></pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <p>Registration Service Status</p>
+          <pre class="stat" id="registration_stat"></pre>
+        </div>
+        <div class="col-md-8">
+          <p>Registration Service Events</p>
+          <pre class="stream" id="registration-events"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
   <script src="/js/client.js"></script>
 </body>
