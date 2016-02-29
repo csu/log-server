@@ -17,7 +17,7 @@ const state = {};
 
 const io = require('socket.io')(server);
 io.on('connection', (socket) => {
-  socket.emit('state', { state });
+  socket.emit('state', state);
 });
 
 app.get('/', (req, res) => {
@@ -29,7 +29,7 @@ app.get('/viz', (req, res) => {
 });
 
 // pre: state = {}
-// body: { type: 'stat', data: { stat: 'mem' }}
+// body: { type: 'stat', data: { mem:... }}
 // post: state = { stat: { mem: ... }}
 const updateState = (body) => {
   if (!body.data || !body.type) {
