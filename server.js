@@ -24,10 +24,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/viz', (req, res) => {
-  res.sendFile(__dirname + '/views/viz.html');
-});
-
 // pre: state = {}
 // body: { type: 'stat', data: { mem:... }}
 // post: state = { stat: { mem: ... }}
