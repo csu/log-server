@@ -1,10 +1,10 @@
 var socket = io();
 
-socket.on('event', function(data) {
+socket.on('event', function(entry) {
   var el = document.createElement('div');
-  var source = data.source || 'main';
-  delete data.source;
-  el.textContent = JSON.stringify(data, null, 2);
+  var source = entry.data.source || 'main';
+  delete entry.data.source;
+  el.textContent = JSON.stringify(entry, null, 2);
   document.getElementById(source + '-events').appendChild(el);
 });
 
