@@ -30,6 +30,16 @@
       <h1>Tor61Router</h1>
     </div>
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <p>Router Status</p>
+          <pre class="stat" id="router_stat"></pre>
+        </div>
+        <div class="col-md-8">
+          <p>Router Events</p>
+          <pre class="stream" id="router-events"></pre>
+        </div>
+      </div>
       <div class="row" class="general">
         <div class="col-md-4">
           <p>Resource Usage</p>
@@ -42,16 +52,6 @@
         <div class="col-md-4">
           <p>Errors</p>
           <pre class="stream" id="errors"></pre>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <p>Router Status</p>
-          <pre class="stat" id="router_stat"></pre>
-        </div>
-        <div class="col-md-8">
-          <p>Router Events</p>
-          <pre class="stream" id="router-events"></pre>
         </div>
       </div>
       <div class="row">
