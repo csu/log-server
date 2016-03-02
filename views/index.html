@@ -8,29 +8,42 @@
   <style>
     h1 {
       margin: 15px;
+      font-size: 24pt;
     }
 
     .stat {
-      height: 250px;
+      /*height: 250px;*/
       margin-bottom: 20px;
       overflow-y: scroll;
       font-size: .8em;
     }
 
     .stream {
-      height: 250px;
+      /*height: 250px;*/
       overflow-y: scroll;
       font-size: .8em;
+    }
+
+    .router pre {
+      height: 400px;
+    }
+
+    .general pre {
+      height: 200px;
+    }
+
+    .registration pre {
+      height: 200px;
     }
   </style>
 </head>
 <body>
   <div class="container-fluid">
     <div id="header">
-      <h1>Tor61Router</h1>
+      <h1>Tor61Logs</h1>
     </div>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row router">
         <div class="col-md-4">
           <p>Router Status</p>
           <pre class="stat" id="router_stat"></pre>
@@ -40,7 +53,7 @@
           <pre class="stream" id="router-events"></pre>
         </div>
       </div>
-      <div class="row" class="general">
+      <div class="row general">
         <div class="col-md-4">
           <p>Resource Usage</p>
           <pre class="stat" id="stat"></pre>
@@ -54,7 +67,7 @@
           <pre class="stream" id="errors"></pre>
         </div>
       </div>
-      <div class="row">
+      <div class="row registration">
         <div class="col-md-4">
           <p>Registration Service Status</p>
           <pre class="stat" id="registration_stat"></pre>
