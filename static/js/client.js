@@ -1,11 +1,17 @@
 var socket = io();
 
+var addEvent = function(elemId, child) {
+  var dest = document.getElementById(elemId);
+  dest.appendChild(child);
+  dest.scrollTop = dest.scrollHeight;
+}
+
 socket.on('event', function(entry) {
   var el = document.createElement('div');
   var source = entry.data.source || 'main';
   delete entry.data.source;
   el.textContent = JSON.stringify(entry, null, 2);
-  document.getElementById(source + '-events').appendChild(el);
+  addEvent(source + '-events', el);
 });
 
 socket.on('state', function(state) {
@@ -20,5 +26,5 @@ socket.on('state', function(state) {
 socket.on('error', function(error) {
   var el = document.createElement('div');
   el.textContent = JSON.stringify(error, null, 2);
-  document.getElementById('errors').appendChild(el);
+  addEvent('errors', el);
 })
