@@ -32,7 +32,7 @@ const updateState = (body) => {
     return;
   }
   state[body.type] = body.data;
-  state[body.type][router] = body['router'];
+  state[body.type]['router'] = body['router'];
 };
 
 app.post('/log', (req, res) => {
