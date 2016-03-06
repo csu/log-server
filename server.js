@@ -18,7 +18,23 @@ const state = {};
 const io = require('socket.io')(server);
 io.on('connection', (socket) => {
   socket.emit('state', state);
+
+  socket.on('log', function(logBody) {
+    emitLog(logBody);
+  });
 });
+
+var emitLog = function(content) {
+  const logBody = JSON.parse(content);
+  if (logBody.type === 'event') {
+    io.emit('event', logBody);
+  } else if (logBody.type === 'error') {
+    io.emit('error', logBody);
+  } else {
+    updateState(logBody);
+    io.emit('state', state);
+  }
+}
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -41,14 +57,6 @@ app.post('/log', (req, res) => {
     res.status(401).send('Wrong secret\n');
     return
   }
-  const logBody = JSON.parse(req.body.logBody);
-  if (logBody.type === 'event') {
-    io.emit('event', logBody);
-  } else if (logBody.type === 'error') {
-    io.emit('error', logBody);
-  } else {
-    updateState(logBody);
-    io.emit('state', state);
-  }
+  emitLog(logBody);
   res.send('Log received\n');
 });
