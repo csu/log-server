@@ -19,13 +19,13 @@ const io = require('socket.io')(server);
 io.on('connection', (socket) => {
   socket.emit('state', state);
 
-  socket.on('log', function(logBody) {
-    emitLog(logBody);
+  socket.on('log', function(content) {
+    const parsed = JSON.parse(content);
+    emitLog(content);
   });
 });
 
-var emitLog = function(content) {
-  const logBody = JSON.parse(content);
+var emitLog = function(logBody) {
   if (logBody.type === 'event') {
     io.emit('event', logBody);
   } else if (logBody.type === 'error') {
@@ -57,6 +57,7 @@ app.post('/log', (req, res) => {
     res.status(401).send('Wrong secret\n');
     return
   }
+  const logBody = JSON.parse(req.body.logBody);
   emitLog(logBody);
   res.send('Log received\n');
 });
