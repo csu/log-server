@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
 
   socket.on('log', function(content) {
     const parsed = JSON.parse(content);
-    emitLog(content);
+    emitLog(parsed);
   });
 });
 
